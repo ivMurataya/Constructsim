@@ -7,7 +7,7 @@ project(exercise_33)
 ## In package.xml you have to state them as build
 find_package(catkin REQUIRED COMPONENTS
   std_msgs
-  message_generation
+  message_generation # Add message_generation here, after the other packages
 )
 
 ## Generate topic messages in the 'msg' folder
@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   Age.msg
-)
+) 
 
 ## Here is where the packages needed for the topic messages compilation are imported.
 generate_messages(
