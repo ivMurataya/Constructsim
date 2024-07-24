@@ -19,3 +19,4 @@ hogImage = hogImage.astype("uint8")
 cv2.imshow('features',hogImage)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
