@@ -1,78 +1,109 @@
 #!/usr/bin/env python
 
-import cv2
+import rospy
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
 import matplotlib.pyplot as plt
+import cv2
 import numpy as np
 
-image1 = cv2.imread('/home/user/catkin_ws/src/opencv_for_robotics_images/Unit_4/Course_images/ROS.png',1)
-image2 = cv2.imread('/home/user/catkin_ws/src/opencv_for_robotics_images/Unit_4/Course_images/ROS2.jpg',1)
 
-image_1 = cv2.resize(image1,(400,600))
-image_2 = cv2.resize(image2,(600,400))
+class ObjectDetect(object):
 
-gray_1 = cv2.cvtColor(image_1, cv2.COLOR_RGB2GRAY)
-gray_2 = cv2.cvtColor(image_2, cv2.COLOR_RGB2GRAY)
+    def __init__(self):
+    
+        self.image_sub = rospy.Subscriber("/camera/rgb/image_raw",Image,self.camera_callback)
+        self.bridge_object = CvBridge()
 
-#Initialize the ORB Feature detector 
-orb = cv2.ORB_create(nfeatures = 1000)
+    def camera_callback(self,data):
+        try:
+            # We select bgr8 because its the OpenCV encoding by default
+            cv_image = self.bridge_object.imgmsg_to_cv2(data, desired_encoding="bgr8")
+        except CvBridgeError as e:
+            print(e)
 
-#Make a copy of th eoriginal image to display the keypoints found by ORB
-#This is just a representative
-preview_1 = np.copy(image_1)
-preview_2 = np.copy(image_2)
+        image1 = cv2.imread('/home/user/catkin_ws/src/opencv_for_robotics_images/Unit_4/Course_images/ROS.png',1)
+        image2 = cv2.imread('/home/user/catkin_ws/src/opencv_for_robotics_images/Unit_4/Course_images/ROS2.jpg',1)
 
-#Create another copy to display points only
-dots = np.copy(image_1)
+        image_1 = cv2.resize(image1,(400,600))
+        image_2 = cv2.resize(image2,(600,400))
 
-#Extract the keypoints from both images
-train_keypoints, train_descriptor = orb.detectAndCompute(gray_1, None)
-test_keypoints, test_descriptor = orb.detectAndCompute(gray_2, None)
+        gray_1 = cv2.cvtColor(image_1, cv2.COLOR_RGB2GRAY)
+        gray_2 = cv2.cvtColor(image_2, cv2.COLOR_RGB2GRAY)
 
-#Draw the found Keypoints of the main image
-cv2.drawKeypoints(image_1, train_keypoints, preview_1, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-cv2.drawKeypoints(image_1, train_keypoints, dots, flags=2)
+        #Initialize the ORB Feature detector 
+        orb = cv2.ORB_create(nfeatures = 1000)
 
-#############################################
-################## MATCHER ##################
-#############################################
+        #Make a copy of th eoriginal image to display the keypoints found by ORB
+        #This is just a representative
+        preview_1 = np.copy(image_1)
+        preview_2 = np.copy(image_2)
 
-#Initialize the BruteForce Matcher
-bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck = True)
+        #Create another copy to display points only
+        dots = np.copy(image_1)
 
-#Match the feature points from both images
-matches = bf.match(train_descriptor, test_descriptor)
+        #Extract the keypoints from both images
+        train_keypoints, train_descriptor = orb.detectAndCompute(gray_1, None)
+        test_keypoints, test_descriptor = orb.detectAndCompute(gray_2, None)
 
-#The matches with shorter distance are the ones we want.
-matches = sorted(matches, key = lambda x : x.distance)
-#Catch some of the matching points to draw
-good_matches = matches[:300]
+        #Draw the found Keypoints of the main image
+        cv2.drawKeypoints(image_1, train_keypoints, preview_1, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        cv2.drawKeypoints(image_1, train_keypoints, dots, flags=2)
 
-#Parse the feature points
-train_points = np.float32([train_keypoints[m.queryIdx].pt for m in good_matches]).reshape(-1,1,2)
-test_points = np.float32([test_keypoints[m.trainIdx].pt for m in good_matches]).reshape(-1,1,2)
+        #############################################
+        ################## MATCHER ##################
+        #############################################
 
-#Create a mask to catch the matching points 
-#With the homography we are trying to find perspectives between two planes
-#Using the Non-deterministic RANSAC method
-M, mask = cv2.findHomography(train_points, test_points, cv2.RANSAC,5.0)
+        #Initialize the BruteForce Matcher
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck = True)
 
-#Catch the width and height from the main image
-h,w = gray_1.shape[:2]
+        #Match the feature points from both images
+        matches = bf.match(train_descriptor, test_descriptor)
 
-#Create a floating matrix for the new perspective
-pts = np.float32([[0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
+        #The matches with shorter distance are the ones we want.
+        matches = sorted(matches, key = lambda x : x.distance)
+        #Catch some of the matching points to draw
+        good_matches = matches[:300]
 
-#Create the perspective in the result 
-dst = cv2.perspectiveTransform(pts,M)
+        #Parse the feature points
+        train_points = np.float32([train_keypoints[m.queryIdx].pt for m in good_matches]).reshape(-1,1,2)
+        test_points = np.float32([test_keypoints[m.trainIdx].pt for m in good_matches]).reshape(-1,1,2)
 
-#Draw the matching lines 
-dots = cv2.drawMatches(dots,train_keypoints,image_2,test_keypoints,good_matches, None,flags=2)
+        #Create a mask to catch the matching points 
+        #With the homography we are trying to find perspectives between two planes
+        #Using the Non-deterministic RANSAC method
+        M, mask = cv2.findHomography(train_points, test_points, cv2.RANSAC,5.0)
 
-# Draw the points of the new perspective in the result image (This is considered the bounding box)
-result = cv2.polylines(image_2, [np.int32(dst)], True, (50,0,255),3, cv2.LINE_AA)
+        #Catch the width and height from the main image
+        h,w = gray_1.shape[:2]
 
-cv2.imshow('Points',preview_1)
-cv2.imshow('Matches',dots)
-cv2.imshow('Detection',result)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+        #Create a floating matrix for the new perspective
+        pts = np.float32([[0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
+
+        #Create the perspective in the result 
+        dst = cv2.perspectiveTransform(pts,M)
+
+        #Draw the matching lines 
+        dots = cv2.drawMatches(dots,train_keypoints,image_2,test_keypoints,good_matches, None,flags=2)
+
+        # Draw the points of the new perspective in the result image (This is considered the bounding box)
+        result = cv2.polylines(image_2, [np.int32(dst)], True, (50,0,255),3, cv2.LINE_AA)
+
+        cv2.imshow('Points',preview_1)
+        cv2.imshow('Matches',dots)
+        cv2.imshow('Detection',result)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+
+def main():
+    objectdetect_object = ObjectDetect()
+    rospy.init_node('objetc_detect_node', anonymous=True)
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print("Shutting down")
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main()
