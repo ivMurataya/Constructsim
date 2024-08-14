@@ -108,6 +108,9 @@ class ShowingImage(object):
             cv2.imshow('black mask',mask)
             substraction = cv2.subtract(image,mask)
             cv2.imshow('substraction',substraction)
+            #Once we have the area color-free, we can add the warped image through image addition, just adding the following lines to the code.
+            addition = cv2.add(warped_image,substraction)
+            cv2.imshow('detection',addition)
         except:
             pass
         cv2.waitKey(1)
