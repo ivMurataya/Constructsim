@@ -27,7 +27,7 @@ The objective of this code is to install the launch files. For example, with the
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-          # You are adding an entry point to the script you wrote earlier, simple.py.
+          # You are adding an entry point to the script you wrote earlier, simple.py. Enter the executable name from the launch file
             'simple_node = my_package.simple:main'
         ],
     },
