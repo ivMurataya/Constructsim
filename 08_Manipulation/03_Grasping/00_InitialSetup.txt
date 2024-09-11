@@ -1,0 +1,8 @@
+--- Spawn Table and Cubes ---
+rosrun gazebo_ros spawn_model -database table -model table -sdf -x 1.30 -y 0 -z 0
+rosrun gazebo_ros spawn_model -database demo_cube -model grasp_cube -sdf -x 0.65 -y 0.15 -z 1.07
+
+--- move robot head and torso position ---
+roslaunch fetch_gazebo_demo move_torso.launch
+roslaunch fetch_gazebo_demo move_head.launch
+
