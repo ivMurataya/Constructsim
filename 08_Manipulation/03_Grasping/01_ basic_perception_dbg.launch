@@ -1,0 +1,10 @@
+ <!--First of all, we are going to create a launch file that will start the ROS node contained in the basic_grasping_perception.cpp script.
+  Also, we are loading the simple_grasping.yaml file, which will contain detailed information about the gripper. We are going to create this file right now. -->
+<launch>
+
+  <!-- Start Perception -->
+  <node name="basic_grasping_perception" pkg="simple_grasping" type="basic_grasping_perception" >
+    <rosparam command="load" file="$(find simple_grasping)/config/simple_grasping.yaml" />
+  </node>
+
+</launch>
