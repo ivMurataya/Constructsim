@@ -13,3 +13,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main() #call the main function
+
+# Let’s execute it in the simplest way possible: 
+# python3 heartbeat.py 
