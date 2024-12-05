@@ -13,10 +13,10 @@ To create a new interface, you have to follow the next steps:
     Use in your node
 """
 
-#------------  Age.msg ------------
-# int32 year
-# int32 month
-# int32 day
+#------------  RoverEvents.msg ------------
+#std_msgs/String info # Info about discovery, issue, action
+#geometry_msgs/Pose rover_location # Location of the mars rover when the info was generated
+
 
 #------------ CMakeLists.txt file ------------------
 """
@@ -31,7 +31,8 @@ if(BUILD_TESTING)
 endif()
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/Age.msg"
+  "msg/RoverEvents.msg"
+   DEPENDENCIES std_msgs geometry_msgs
 )
 
 ament_package()
