@@ -19,6 +19,7 @@ To create a new interface, you have to follow the next steps:
 # mkdir srv
 # touch MyCustomServiceMessage.srv
 
+# A)
 string move   # Signal to define the movement
               # "Turn right" to make the robot turn in the right direction.
               # "Turn left" to make the robot turn in the left direction. 
@@ -26,6 +27,17 @@ string move   # Signal to define the movement
 
 ---
 bool success  # Did it achieve it?
+
+
+# B)
+string label  # Label to look for
+---
+bool success  # was label string found?
+int32 start_x # X axis cordinate of Start point of Bounding Box
+int32 start_y # Y axis cordinate of Start point of Bounding Box
+int32 end_x   # X axis cordinate of End point of Bounding Box
+int32 end_y   # Y axis cordinate of End point of Bounding Box
+
 
 
 #------------ CMakeLists.txt file ------------------
