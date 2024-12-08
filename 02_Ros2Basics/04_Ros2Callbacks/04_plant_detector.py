@@ -142,7 +142,12 @@ def generate_launch_description():
     ])
 
 """
+"""
+cd ~/ros2_ws/
+source /home/simulations/ros2_sims_ws/install/setup.bash
+ros2 run ros2_callback_visualiser analise_trace_plant_searcher_callbacks.py
 
+"""
 
 """
 
