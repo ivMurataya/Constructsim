@@ -117,6 +117,34 @@ if __name__ == '__main__':
 
 
 """
+import launch
+import launch_ros.actions
+from tracetools_launch.action import Trace
+
+
+def generate_launch_description():
+    
+    # Trace
+    trace = Trace(
+        session_name='plant_detector'
+    )
+    # Nodes
+    plant_detector_node = launch_ros.actions.Node(
+        package='basics_ros2_multithreading',
+        executable='plant_detector.py',
+        arguments=[],
+        output='screen',
+    )
+
+    return launch.LaunchDescription([
+        trace,
+        plant_detector_node
+    ])
+
+"""
+
+
+"""
 
 
     This script uses a pretrained AI model, similar to the one used for detecting tropical plants in the Topics Units, trained to detect ALIEN PLANTS , 
