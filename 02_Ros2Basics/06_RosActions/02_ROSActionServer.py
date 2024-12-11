@@ -213,4 +213,13 @@ orientation by accepting goals from clients and using the nav2 package for
 autonomous navigation. It initializes the robot's starting pose, waits for 
 localization to be active, and then sends navigation goals to the nav2 stack 
 to move the robot to the desired location. 
+
+
+colcon build --packages-select my_action_server
+ros2 launch leo_description loc_nav.launch.py
+ros2 run my_action_server action_server.py
+ros2 action send_goal /go_to_pose leo_description/action/GoToPose "{x: -8.0, y: 6.0, yaw: 1.57}"
+
+
+
 """
