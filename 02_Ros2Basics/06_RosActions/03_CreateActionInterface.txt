@@ -1,0 +1,58 @@
+1- Create an action directory in your custom_interfaces package.
+2- Create your <interface_name>.action Action Interface file. In this case GoToPose.action.
+
+The name of the Action Interface file will later determine the names of the classes to be used in the Action Server and/or Action Client. The ROS2 convention indicates that the name must be in camel case.
+Remember that the Action Interface file must contain three parts, each separated by three hyphens.
+
+Modify the CMakeLists.txt and package.xml files to include action interface compilation. Read the detailed description below.
+---------------------------------------------------------------------------------------------------------------
+#goal
+message_type goal_var_name
+---
+#result
+message_type result_var_name
+---
+#feedback
+message_type feedback_var_name
+
+---------------------------------------------------------------------------------------------------------------
+GoToPose.action
+# Goal definition
+float64 x
+float64 y
+float64 yaw
+---
+# Result definition
+bool success
+---
+# Feedback definition
+string feedback
+
+---------------------------------------------------------------------------------------------------------------
+#CMakeList.txt
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "action/GoToPose.action"
+)
+find_package(action_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+---------------------------------------------------------------------------------------------------------------
+To generate Action Interfaces, make sure you have access to the following packages:
+rosidl_default_generators
+action_msgs
+
+In the package.xml file, make sure you have dependencies for the following packages:
+action_msgs
+rosidl_default_generators
+
+<depend>action_msgs</depend>
+<depend>rosidl_default_generators</depend>
+<member_of_group>rosidl_interface_packages</member_of_group>
+
+---------------------------------------------------------------------------------------------------------------
+colcon build --packages-select custom_interfaces
+ros2 interface show custom_interfaces/action/GoToPose
+
+
+
