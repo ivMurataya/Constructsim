@@ -46,3 +46,12 @@ def generate_launch_description():
             rviz_node
         ]
     )
+
+
+"""
+ros2 launch my_box_bot_gazebo start_world.launch.py
+
+ros2 launch my_box_bot_gazebo spawn_robot_ros2_physical.launch.xml
+
+"""
+
