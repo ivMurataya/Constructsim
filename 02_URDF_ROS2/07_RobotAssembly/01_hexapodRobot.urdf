@@ -1,0 +1,604 @@
+<?xml version="1.0"?>
+<robot name="quadruped_robot">
+  
+<link name="part_1">
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/part_1.stl"/>
+</geometry>
+<material name="part_1_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/part_1.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0.0099999999999999724526 9.0002135012272018976e-17 0.055838601945946732263" rpy="0 0 0"/>
+<mass value="326.87920065876988929" />
+<inertia ixx="63.344754222541560296" ixy="-1.3173056395698872957e-15"  ixz="1.449939105224584127e-16" iyy="16.325740813613357716" iyz="-5.5457703988612267379e-16" izz="78.893513511860987819" />
+</inertial>
+</link>
+
+<link name="shoulder">
+<visual>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619204833 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb">
+<visual>
+<origin xyz="0 1.5250000000000001332 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 1.5250000000000001332 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="4.0731331005033949627e-18 0.86258161512027509144 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="3.2465757913573069754e-32" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb1" type="revolute">
+<origin xyz="0 -1 0" rpy="-3.141592653589793116 6.1232339957367598729e-17 2.7925268031909271649" />
+<parent link="upperlimb" />
+<child link="lowerlimb" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="0.34906585039886589561" upper="3.141592653589793116"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb1" type="revolute">
+<origin xyz="5.5511151231257827021e-17 0 -0.1500000000000000222" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder" />
+<child link="upperlimb" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.34906585039886589561" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder1" type="revolute">
+<origin xyz="-0.26499999999999995781 -0.65000000000000013323 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.570796326794896558" upper="0.785398163397448279"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="shoulder_2">
+<visual>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619204833 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb_2">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb_2">
+<visual>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-1.0694916936201226216e-16 0.86258161512027475837 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="2.9469308402548699336e-31" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb2" type="revolute">
+<origin xyz="-5.5511151231257827021e-17 -1 0" rpy="-3.141592653589793116 6.1232339957367660359e-17 -2.792526803190927609" />
+<parent link="upperlimb_2" />
+<child link="lowerlimb_2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-3.141592653589793116" upper="-0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb2" type="revolute">
+<origin xyz="0 0 -0.15000000000000007772" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder_2" />
+<child link="upperlimb_2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.570796326794896558" upper="0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder2" type="revolute">
+<origin xyz="0.2850000000000000866 -0.6500000000000000222 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder_2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.785398163397448279" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="shoulder_3">
+<visual>
+<origin xyz="0 6.1232339957367771292e-18 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 6.1232339957367771292e-18 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619211772 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb_3">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb_3">
+<visual>
+<origin xyz="0 1.5249999999999999112 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 1.5249999999999999112 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="4.0731331005033949627e-18 0.86258161512027475837 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="-3.3147920496299262356e-32" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb3" type="revolute">
+<origin xyz="0 -0.99999999999999977796 0" rpy="-3.141592653589793116 6.1232339957367648033e-17 2.7925268031909271649" />
+<parent link="upperlimb_3" />
+<child link="lowerlimb_3" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="0.34906585039886589561" upper="3.141592653589793116"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb3" type="revolute">
+<origin xyz="0 6.1232339957367771292e-18 -0.1500000000000000222" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder_3" />
+<child link="upperlimb_3" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.34906585039886589561" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder3" type="revolute">
+<origin xyz="-0.26500000000000001332 -1.2571575017850056205e-16 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder_3" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.785398163397448279" upper="0.785398163397448279"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="shoulder_4">
+<visual>
+<origin xyz="0 6.123233995736766344e-18 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 6.123233995736766344e-18 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619211772 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb_4">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb_4">
+<visual>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-1.0694916936201226216e-16 0.86258161512027475837 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="2.9469308402548699336e-31" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb4" type="revolute">
+<origin xyz="0 -1 3.336929161102777063e-33" rpy="-3.141592653589793116 6.1232339957367660359e-17 -2.792526803190927609" />
+<parent link="upperlimb_4" />
+<child link="lowerlimb_4" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-3.141592653589793116" upper="-0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb4" type="revolute">
+<origin xyz="0 6.123233995736766344e-18 -0.1500000000000000222" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder_4" />
+<child link="upperlimb_4" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.570796326794896558" upper="0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder4" type="revolute">
+<origin xyz="0.28500000000000003109 6.123233995736766344e-18 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder_4" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.785398163397448279" upper="0.785398163397448279"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="shoulder_5">
+<visual>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619204833 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb_5">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb_5">
+<visual>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-1.1102230246251565404e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -4.6222318665293660473e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-1.0694916936201226216e-16 0.86258161512027475837 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="-3.3147920496299262356e-32" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb5" type="revolute">
+<origin xyz="0 -0.99999999999999977796 0" rpy="-3.141592653589793116 6.1232339957367648033e-17 2.7925268031909271649" />
+<parent link="upperlimb_5" />
+<child link="lowerlimb_5" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="0.34906585039886589561" upper="3.141592653589793116"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb5" type="revolute">
+<origin xyz="0 0 -0.1500000000000000222" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder_5" />
+<child link="upperlimb_5" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.34906585039886589561" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder5" type="revolute">
+<origin xyz="-0.26500000000000001332 0.64999999999999991118 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder_5" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.785398163397448279" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="shoulder_6">
+<visual>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+<material name="shoulder_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="3.141592653589793116 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/shoulder.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-3.7347681414163801479e-19 0.027929396093619204833 -0.095649350649350650677" rpy="0 0 0"/>
+<mass value="10.885618544688634657" />
+<inertia ixx="0.067417122752900543459" ixy="0"  ixz="0" iyy="0.075908462192995476703" iyz="0.0092341600956555008189" izz="0.043109319895117424737" />
+</inertial>
+</link>
+
+<link name="upperlimb_6">
+<visual>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+<material name="upperlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 0" rpy="1.570796326794896558 -0 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/upperlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.4439725848620533434e-18 -0.50000000000000011102 -0.041859986609857721684" rpy="0 0 0"/>
+<mass value="48.066367599923843557" />
+<inertia ixx="5.204489452505125513" ixy="0"  ixz="0" iyy="0.15045227104254321748" iyz="0" izz="5.2887141526857410767" />
+</inertial>
+</link>
+
+<link name="lowerlimb_6">
+<visual>
+<origin xyz="-2.2204460492503130808e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+<material name="lowerlimb_material">
+<color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-2.2204460492503130808e-16 1.5249999999999999112 0" rpy="1.570796326794896558 -7.7037197775489434122e-33 0" />
+<geometry>
+<mesh filename="package://quadruped_description/quadruped/lowerlimb.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-2.1797147182452789155e-16 0.86258161512027475837 -0.029947488034416901159" rpy="0 0 0"/>
+<mass value="82.278311597516690767" />
+<inertia ixx="21.219064546212177191" ixy="-1.1534501519517249664e-16"  ixz="2.9469308402548699336e-31" iyy="0.32911778625415522015" iyz="-0.58453590065355065519" izz="21.292856017780909639" />
+</inertial>
+</link>
+
+<joint name="lowerlimb6" type="revolute">
+<origin xyz="0 -1 0" rpy="-3.141592653589793116 6.1232339957367660359e-17 -2.792526803190927609" />
+<parent link="upperlimb_6" />
+<child link="lowerlimb_6" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-3.141592653589793116" upper="-0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="upperlimb6" type="revolute">
+<origin xyz="0 0 -0.1500000000000000222" rpy="1.570796326794896558 -0 3.141592653589793116" />
+<parent link="shoulder_6" />
+<child link="upperlimb_6" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.570796326794896558" upper="0.34906585039886589561"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder6" type="revolute">
+<origin xyz="0.28500000000000003109 0.6500000000000000222 0.1500000000000000222" rpy="3.141592653589793116 -0 0" />
+<parent link="part_1" />
+<child link="shoulder_6" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.570796326794896558" upper="0.785398163397448279"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+
+</robot>
