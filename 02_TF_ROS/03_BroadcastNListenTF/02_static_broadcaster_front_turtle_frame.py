@@ -54,3 +54,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+"""
+ros2 run my_tf_ros2_course_pkg static_broadcaster_front_turtle_frame.py turtle_chassis my_front_turtle_frame 0.4 0 0.4 0 0.7 3.1416
+
+"""
