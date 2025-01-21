@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
 import rclpy
+import math
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
-import math
-import sys
 from sensor_msgs.msg import LaserScan
 from custom_interfaces.srv import FindWall
 from rclpy.qos import ReliabilityPolicy, QoSProfile
-import math
-
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import ReentrantCallbackGroup
 
 class RotateRobot(Node):
     def __init__(self):
-
         super().__init__('rotate_robot')
         self.reentrant_group_1 = ReentrantCallbackGroup()
 
@@ -43,7 +39,8 @@ class RotateRobot(Node):
             LaserScan,
             '/scan',
             self.laserscan_callback,
-            QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE)
+            QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE),
+            callback_group=self.reentrant_group_1
         )
 
         self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
@@ -95,7 +92,12 @@ class RotateRobot(Node):
         if min_distance is not None:
             self.moveDeg = self.getAngle(min_distance)
             self.rotate_relative(self.moveDeg)
+            self.moveForwardtoWall()
+            self.get_logger().info("Wall in front")
+            self.rotate_relative(90)
             response.wallfound = True
+            self.resetData()
+            
         else:
             response.wallfound = False
         return response
@@ -129,13 +131,11 @@ class RotateRobot(Node):
             angle_diff = self.target_angle - self.current_angle
             # Normalize the angle difference to be within -pi to pi
             angle_diff = (angle_diff + math.pi) % (2 * math.pi) - math.pi
-            #self.get_logger().info(f"Angle diff {angle_diff}")
-
             # Set angular velocity (simple proportional control)
             twist_msg.angular.z = 0.5 * angle_diff  # Proportional gain of 0.5
             self.cmd_vel_publisher.publish(twist_msg)
             #self.get_logger().info(f'Rotating: Current angle = {self.current_angle}, Target angle = {self.target_angle}')
-            rclpy.spin_once(self)  # Keep the program responsive
+            
 
         # Stop once the desired angle is reached
         twist_msg.angular.z = 0.0
@@ -151,12 +151,40 @@ class RotateRobot(Node):
         return angle_to_mind
 
 
+    def resetData(self):
+        #Variables used for Odom Data
+        self.current_angle = None
+        self.target_angle = 0.0
+        self.moveDeg = 0.0
+        self.odom_received = False
+
+        #Variables used for laser data
+        self.minRangeList = None
+        self.sensorData = None  
+        self.angle_min = None
+        self.angle_increment = None
+
+        self.get_logger().info("Finished uwu")
+
+    def moveForwardtoWall(self):
+        self.get_logger().info("Moving to wall")
+        twist_msg = Twist()
+        twist_msg.linear.x = 0.1
+        while self.sensorData.ranges[0] > 0.2:
+            self.cmd_vel_publisher.publish(twist_msg)
+            self.get_logger().info(f"Distance 2 wall = {self.sensorData.ranges[0]}")
+
+        # Stop the robot when it reaches the desired distance
+        twist_msg.linear.x = 0.0
+        self.cmd_vel_publisher.publish(twist_msg)
+        self.get_logger().info("Reached desired distance from object.")
+
 def main(args=None):
     rclpy.init(args=args)
     moving_service = RotateRobot()
 
     # Use MultiThreadedExecutor
-    executor = MultiThreadedExecutor(num_threads=2)
+    executor = MultiThreadedExecutor(num_threads=3)
     executor.add_node(moving_service)
     try:
         executor.spin()
