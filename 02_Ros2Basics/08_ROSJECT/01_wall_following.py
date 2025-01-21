@@ -27,8 +27,8 @@ class WallFollowingNode(Node):
 
         # Robot control parameters
         self.wall_follow_tolerance = 0.5  # Tolerance for wall following (m)
-        self.min_wall_distance = 0.2
-        self.max_wall_distance = 0.3
+        self.min_wall_distance = 0.17
+        self.max_wall_distance = 0.22
 
         self.get_logger().info("wall_following_node Ready...")
 
@@ -72,34 +72,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-
-"""
-To achieve this behavior in the robot, you need to do:
-
-    Create a ROS2 package named wall_follower
-        This package is the one that will contain the full project
-        Inside the package include a ROS Python file named wall_following.py
-
-    Subscribe to the laser topic of the robot
-        Inside the wall_following.py, you need to subscribe to the laser topic and capture the rays
-
-        In the callback of the subscriber, select the ray on the right (the one that makes a 90º angle to the right with the front of the robot) and use it to know the robot's distance to the wall
-
-        NOTE: The topics for different simulations most likely will not be named the same. So make sure that you are using the correct name. For example, you used /kobuki/laser/scan during the course. The laser topic in this simulation is /scan
-
-    Publish to the velocity topic of the robot
-        Also inside the wall_following.py, create a publisher to the /cmd_vel topic that controls the wheels
-
-        At every step of the control loop, you need to publish the proper velocity command on that topic, based on the value of the distances detected by the laser:
-            If the distance to the wall is bigger than 0.3m, you need to make the robot approach the wall a little, by adding some rotational speed to the robot
-            If the distance to the wall is smaller than 0.2m, you need to move the robot away from the wall, by adding rotational speed in the opposite direction
-            If the distance to the wall is between 0.2m and 0.3m, just keep the robot moving forward
-
-        IMPORTANT
-
-        When the robot is moving along a wall, it can reach the next wall just infront of it. At that point in time, you should take into account how to progressively transition the robot from following the current wall to the next one.
-
-        To detect the wall in the front, we recommend that you use the laser ray just in the front of the robot. If the distance measured by that ray is shorter than 0.5m, then make the robot turn fast to the left (moving forward at the same time).
-
-        """
