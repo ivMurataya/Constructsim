@@ -18,6 +18,8 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(nav_msgs REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -32,13 +34,47 @@ endif()
 
 # Build 
 add_executable(executor_example_1_node src/executor_example_1.cpp)
-ament_target_dependencies(executor_example_1_node rclcpp)
+add_executable(executor_example_2_node src/executor_example_2.cpp)
+add_executable(executor_example_3_node src/executor_example_3.cpp)
+add_executable(executor_example_4_node src/executor_example_4.cpp)
+add_executable(executor_example_4_singlethreaded_node src/executor_example_4_singlethreaded.cpp)
+add_executable(executor_example_5_node src/executor_example_5.cpp)
+add_executable(executor_example_5_reentrant_node src/executor_example_5_reentrant.cpp)
+add_executable(executor_example_5_mutualyexclusive_node src/executor_example_5_mutualyexclusive.cpp)
+add_executable(executor_example_5_mutualyexclusive_multiple_node src/executor_example_5_mutualyexclusive_multiple.cpp)
+add_executable(box_bot_manager_node src/box_bot_managerSolution.cpp)
+add_executable(multi_node src/box_bot_manager.cpp)
 
+
+
+
+ament_target_dependencies(executor_example_1_node rclcpp)
+ament_target_dependencies(executor_example_2_node rclcpp nav_msgs)
+ament_target_dependencies(executor_example_3_node rclcpp nav_msgs)
+ament_target_dependencies(executor_example_4_node rclcpp nav_msgs)
+ament_target_dependencies(executor_example_4_singlethreaded_node rclcpp nav_msgs)
+ament_target_dependencies(executor_example_5_node rclcpp)
+ament_target_dependencies(executor_example_5_reentrant_node rclcpp)
+ament_target_dependencies(executor_example_5_mutualyexclusive_node rclcpp)
+ament_target_dependencies(executor_example_5_mutualyexclusive_multiple_node rclcpp)
+ament_target_dependencies(box_bot_manager_node rclcpp nav_msgs geometry_msgs)
+ament_target_dependencies(multi_node rclcpp nav_msgs geometry_msgs)
 
 # Install
 install(TARGETS
    executor_example_1_node
+   executor_example_2_node
+   executor_example_3_node
+   executor_example_4_node
+   executor_example_4_singlethreaded_node
+   executor_example_5_node
+   executor_example_5_reentrant_node
+   executor_example_5_mutualyexclusive_node
+   executor_example_5_mutualyexclusive_multiple_node
+   box_bot_manager_node
+   multi_node
    DESTINATION lib/${PROJECT_NAME}
  )
+
 
 ament_package()
