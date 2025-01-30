@@ -45,4 +45,9 @@ In your part of the code you will have to:
 
     Declare a vector object for storing float values, you can name it headings
     Use the get_heading() method of the RobotCommander class to retieve the current robot heading
-    Populate the headings vector with the values that you get*/
+    Populate the headings vector with the values that you get
+------------------------------------------------------------------------------------------------    
+add_executable(robot_heading_as_vector src/robot_heading_as_vector.cpp)
+target_link_libraries(robot_heading_as_vector ${catkin_LIBRARIES})
+
+    */
