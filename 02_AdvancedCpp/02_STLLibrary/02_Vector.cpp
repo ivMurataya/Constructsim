@@ -57,3 +57,6 @@ int main() {
 
   return 0;
 }
+
+//clang++ vector_example.cpp -o vector_example
+// ./vector_example
