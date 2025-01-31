@@ -7,9 +7,12 @@ class IceTray
     std::string star_shape;
 
     void status(){
-      std::cout << "Crystal which is in fish shape is "<< fish_shape << " and the one in star shape is " << star_shape << std::endl;
+      std::cout << "Crystal which is in fish shape is "<< fish_shape << " and the one in" << uwu << " star shape is " << star_shape << std::endl;
   
   }
+
+  private:
+    std::string uwu = "uwu";
 };
 
 int main(){
