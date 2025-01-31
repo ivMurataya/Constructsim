@@ -2,10 +2,11 @@
 
 class IceTray
 {
-  std::string fish_shape;
-  std::string star_shape;
+ public:
+    std::string fish_shape;
+    std::string star_shape;
 
-  void status(){
+    void status(){
       std::cout << "Crystal which is in fish shape is "<< fish_shape << " and the one in star shape is " << star_shape << std::endl;
   
   }
