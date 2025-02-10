@@ -1,3 +1,4 @@
+#Spawn.launch.py
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -53,6 +54,26 @@ def generate_launch_description():
         output="screen",
     )
 
+
+    # ROS-Gazebo Bridge #
+    ign_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        name="ign_bridge",
+        arguments=[
+            "/clock" + "@rosgraph_msgs/msg/Clock" + "[ignition.msgs.Clock",
+            "/cmd_vel" + "@geometry_msgs/msg/Twist" + "@ignition.msgs.Twist",
+            "/tf" + "@tf2_msgs/msg/TFMessage" + "[ignition.msgs.Pose_V",
+            "/odom" + "@nav_msgs/msg/Odometry" + "[ignition.msgs.Odometry",
+            "/laser/scan" + "@sensor_msgs/msg/LaserScan" + "[ignition.msgs.LaserScan",
+            "/imu" + "@sensor_msgs/msg/Imu" + "[ignition.msgs.IMU",
+        ],
+        remappings=[
+            # there are no remappings for this robot description
+        ],
+        output="screen",
+    )
+
     # Create and Return the Launch Description Object #
     return LaunchDescription(
         [
@@ -64,6 +85,7 @@ def generate_launch_description():
             declare_spawn_z,
             declare_spawn_name,
             gz_spawn_entity,
+            ign_bridge
         ]
     )
 
@@ -74,9 +96,8 @@ ros2 launch robot_description spawn.launch.py x:=5 y:=5 model_name:=my_robot_2
 """
 
 
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+#setup.py
 from setuptools import setup
 import os
 from glob import glob
@@ -114,7 +135,7 @@ setup(
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+#package.xml
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
