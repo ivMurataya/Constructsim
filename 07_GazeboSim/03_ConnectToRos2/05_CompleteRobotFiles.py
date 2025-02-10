@@ -1,0 +1,142 @@
+import os
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import (Command, LaunchConfiguration)
+from launch_ros.actions import (Node, SetParameter)
+
+# ROS2 Launch System will look for this function definition #
+def generate_launch_description():
+
+    # Get Package Description and Directory #
+    package_description = "robot_description"
+    package_directory = get_package_share_directory(package_description)
+
+    # Load URDF File #
+    urdf_file = 'robot.xacro'
+    robot_desc_path = os.path.join(package_directory, "urdf", urdf_file)
+    print("URDF Loaded !")
+
+    # Robot State Publisher (RSP) #
+    robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher_node',
+        output="screen",
+        emulate_tty=True,
+        parameters=[{'use_sim_time': True, 
+                     'robot_description': Command(['xacro ', robot_desc_path])}]
+    )
+
+    # Spawn the Robot #
+    declare_spawn_x = DeclareLaunchArgument("x", default_value="0.0",
+                                            description="Model Spawn X Axis Value")
+    declare_spawn_y = DeclareLaunchArgument("y", default_value="0.0",
+                                            description="Model Spawn Y Axis Value")
+    declare_spawn_z = DeclareLaunchArgument("z", default_value="0.5",
+                                            description="Model Spawn Z Axis Value")
+    declare_spawn_name = DeclareLaunchArgument("model_name",default_value="uwuRobot", 
+                                            description="Robot model name")
+
+    gz_spawn_entity = Node(
+        package="ros_gz_sim",
+        executable="create",
+        name="my_robot_spawn",
+        arguments=[
+            "-name",LaunchConfiguration("model_name"),
+            "-allow_renaming", "true",
+            "-topic", "robot_description",
+            "-x", LaunchConfiguration("x"),
+            "-y", LaunchConfiguration("y"),
+            "-z", LaunchConfiguration("z"),
+        ],
+        output="screen",
+    )
+
+    # Create and Return the Launch Description Object #
+    return LaunchDescription(
+        [
+            # Sets use_sim_time for all nodes started below (doesn't work for nodes started from ignition gazebo) #
+            SetParameter(name="use_sim_time", value=True),
+            robot_state_publisher_node,
+            declare_spawn_x,
+            declare_spawn_y,
+            declare_spawn_z,
+            declare_spawn_name,
+            gz_spawn_entity,
+        ]
+    )
+
+
+"""
+ros2 launch robot_description spawn.launch.py x:=5 y:=5 model_name:=my_robot_2
+
+"""
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+from setuptools import setup
+import os
+from glob import glob
+
+package_name = 'robot_description'
+
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=[package_name],
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+        #This way, all the files inside the urdf folder gets copied into the install directory during compilation.
+        (os.path.join('share', package_name,'urdf'), glob('urdf/*.*')),
+        (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
+        (os.path.join('share', package_name, 'meshes'), glob('meshes/*.stl')),
+        (os.path.join('share', package_name,'launch'), glob('launch/*.launch.py')),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='user',
+    maintainer_email='user@todo.todo',
+    description='TODO: Package description',
+    license='TODO: License declaration',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+        'simple_publisher = robot_description.robot_subscription:main',
+        'laser_node = robot_description.solutionOdometry:main'
+        ],
+    },
+)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robot_description</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="user@todo.todo">user</maintainer>
+  <license>TODO: License declaration</license>
+
+  <depend>rclpy</depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
