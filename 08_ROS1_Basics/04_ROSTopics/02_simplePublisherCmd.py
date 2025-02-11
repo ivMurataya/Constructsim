@@ -1,26 +1,18 @@
 #! /usr/bin/env python
 
 import rospy
-from geometry_msgs.msg import Twist             
+from geometry_msgs.msg import Twist
 
-rospy.init_node('topic_publisher')
-pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)    
-                                           
+rospy.init_node('move_robot_node')
+pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 rate = rospy.Rate(2)
-mov = Twist()
+move = Twist()
+move.linear.x = 0.5 #Move the robot with a linear velocity in the x axis
+move.angular.z = 0.5 #Move the with an angular velocity in the z axis
 
-mov.angular.z = 0.5
-mov.linear.x = 0.5
-
-# Create a loop that will go until someone stops the program execution
-while not rospy.is_shutdown():
-  # Publish the message within the 'count' variable
-  pub.publish(mov)
-  rate.sleep()      
-
-mov.angular.z = 0
-mov.linear.x = 0      
-pub.publish(mov)               
+while not rospy.is_shutdown(): 
+  pub.publish(move)
+  rate.sleep()     
 
 
 #rosrun my_publisher_example_pkg simple_topic_publisher_cmd.py 
