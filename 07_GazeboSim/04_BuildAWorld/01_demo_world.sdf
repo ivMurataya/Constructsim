@@ -131,3 +131,9 @@
     </world>
 
 </sdf>
+
+<!--export GZ_SIM_RESOURCE_PATH=~/ros2_ws/src/robot_description/models
+cd ~/ros2_ws/src/robot_description/worlds
+gz sim demo_world.sdf
+
+-->
