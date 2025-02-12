@@ -1,0 +1,49 @@
+In order to create a new message, you will need to do the following steps:
+Create a directory named 'msg' inside your package
+Inside this directory, create a file named Name_of_your_message.msg (more information down)
+Modify CMakeLists.txt file (more information down)
+Modify package.xml file (more information down)
+Compile
+Use in code
+1) Create a directory msg in your package.
+roscd <package_name>
+mkdir msg
+
+
+2) The Age.msg file must contain this:
+float32 years
+float32 months
+float32 days
+
+
+3) In CMakeLists.txt
+You will have to edit four functions inside CMakeLists.txt:
+find_package(catkin REQUIRED COMPONENTS
+       rospy
+       std_msgs
+       message_generation   # Add message_generation here, after the other packages
+)
+
+add_message_files(
+      FILES
+      Age.msg
+    ) # Dont Forget to UNCOMENT the parenthesis and add_message_files TOO
+
+generate_messages(
+      DEPENDENCIES
+      std_msgs
+) # Dont Forget to uncoment here TOO
+
+catkin_package(
+      CATKIN_DEPENDS rospy message_runtime   # This will NOT be the only thing here
+)
+
+4) Modify package.xml
+<build_depend>message_generation</build_depend> 
+<build_export_depend>message_runtime</build_export_depend>
+<exec_depend>message_runtime</exec_depend>
+
+
+To verify that your message has been created successfully, type in your Terminal rosmsg show Age. If the structure of the Age message appears, it will mean that your message has been created successfully and it's ready to be used in your ROS programs.
+rosmsg show Age
+
