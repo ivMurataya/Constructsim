@@ -67,5 +67,14 @@ if __name__ == '__main__':
   FibonacciClass()
   rospy.spin()
 
-
+"""
+#goal definition
+int32 order
+---
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence
+"""
  
