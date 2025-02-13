@@ -35,3 +35,15 @@ def main(args=None):
 
 if __name__ == '__main__':
     main() #call the main function
+
+
+"""
+ros2_ws/src/build_test_pkg/params_files/params.yaml
+robot_name: "Marceline"
+serial_num: 123456789
+
+
+(os.path.join('share', package_name, 'params_files'), glob('params_files/*.yaml')),
+"""
+
+
