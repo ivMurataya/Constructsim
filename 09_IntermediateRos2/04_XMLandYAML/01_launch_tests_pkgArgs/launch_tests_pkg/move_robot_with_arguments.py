@@ -45,7 +45,7 @@ class MoveRobot(Node):
         if self.mode == "turning":
             self.go_forwards()
             self.mode = "go_forward"
-        if self.mode == "go_forward":
+        elif self.mode == "go_forward":
             self.turn()
             self.mode = "turning"
         else:
