@@ -85,3 +85,10 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+"""
+ros2 run qos_tests_pkg publisher_durability_exe -durability transient_local
+ros2 run qos_tests_pkg subscriber_durability_exe -durability transient_local 
+ros2 topic echo --qos-durability transient_local --qos-reliability reliable /qos_test
+
+"""
