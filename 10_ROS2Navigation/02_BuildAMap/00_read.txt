@@ -1,0 +1,12 @@
+
+
+In this unit, you will learn an essential concept in navigation - how to build a map.
+
+Topics covered in this unit are:
+
+    Explanation of a map and why you need it
+    What you need to build a map in ROS2
+    How to use cartographer to build a map
+    How to provide the built map to other ROS2 apps
+    A new navigation concept: Navigation Lifecycle Manager
+
