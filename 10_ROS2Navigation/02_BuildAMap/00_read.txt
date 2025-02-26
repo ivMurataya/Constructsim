@@ -10,3 +10,4 @@ Topics covered in this unit are:
     How to provide the built map to other ROS2 apps
     A new navigation concept: Navigation Lifecycle Manager
 
+ 
