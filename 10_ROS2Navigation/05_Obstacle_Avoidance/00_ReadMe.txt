@@ -60,6 +60,7 @@ ros2 run gazebo_ros spawn_entity.py -entity gas_bottle3 -database gas_bottle -x 
 
 
 To add a local costmap, you must add a series of params to the controller configuration file (at the bottom of the file).
+https://get-help.theconstruct.ai/t/cannot-properly-visualize-local-costmap-in-rviz2-exercise-5-3-unit-5/23295
 
 
 local_costmap:
