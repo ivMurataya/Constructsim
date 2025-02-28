@@ -1,4 +1,5 @@
-
+SAME PROJECT AS PATH PLANING BUT ADDING GLOBAL AND LOCAL COSTMAPS
+ALSO HAVING THE COMPLETE NAVIGATION SERVER IN A LAUNCH FILE
 
 In this unit, you will learn how Nav2 avoids static and dynamic obstacles.
 
