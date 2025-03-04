@@ -9,3 +9,4 @@ In this unit, you will review the essential new features introduced in Nav2, whi
     Introduction to Keepout Zones and speed-restricted zones
 
 You will then create a basic autonomous robotics demo based on Nav2. You will do this in a simulated warehouse where robots are often deployed:
+ 
