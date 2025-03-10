@@ -1,0 +1,5 @@
+<library path="my_custom_costmap_core">
+  <class name="MyCrazyCustomCostmapLayer_Plugin_Name" type="my_custom_costmap_namespace_name::MyCustomCostmap" base_class_type="nav2_costmap_2d::Layer">
+    <description>This is a Crazy costmap layer created for fun</description>
+  </class>
+</library>

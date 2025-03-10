@@ -1,0 +1,5 @@
+<library path="wavy_line_planner_core">
+	<class name="WavyLineCustomPlugin" type="nav2_wavyline_planner_namespace_name::WavyLine" base_class_type="nav2_core::GlobalPlanner">
+	  <description>This is an example plugin which produces Wavy line path.</description>
+	</class>
+</library>
