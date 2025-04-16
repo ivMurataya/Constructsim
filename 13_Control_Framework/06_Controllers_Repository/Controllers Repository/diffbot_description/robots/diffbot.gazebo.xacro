@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="diffbot_gazebo" params="prefix">
+  <!-- Add the gazebo XML tags below this line -->
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(find diffbot_description)/config/diff_drive_controller_config.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+
+
+  <!-- Add the gazebo XML tags above this line -->
+  </xacro:macro>
+
+</robot>
