@@ -1,0 +1,17 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz
+
+    # Declare controller name and type
+    forward_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+# Controller properties and joints to use
+forward_velocity_controller:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2

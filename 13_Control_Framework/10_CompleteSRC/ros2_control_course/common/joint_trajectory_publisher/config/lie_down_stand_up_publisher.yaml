@@ -1,0 +1,46 @@
+publisher_joint_trajectory_controller:
+  ros__parameters:
+
+    controller_name: "position_trajectory_controller"
+    wait_sec_between_publish: 6
+
+    #goal_names: ["walk1", "walk2", "walk3", "walk4", "walk5", "walk6", "walk7", "walk8"]
+
+    #walk1: [ 0.5, -1.0, -0.5, -0.9, -0.5, -0.9,  0.5, -1.0]  # FL+RR forward
+    #walk2: [ 0.3, -0.8, -0.3, -1.1, -0.3, -1.1,  0.3, -0.8]  # mid-swing
+    #walk3: [ 0.0, -0.9,  0.0, -1.2,  0.0, -1.2,  0.0, -0.9]  # neutral stance
+    #walk4: [-0.3, -1.1,  0.3, -0.8,  0.3, -0.8, -0.3, -1.1]  # FR+RL start forward
+    #walk5: [-0.5, -1.0,  0.5, -0.9,  0.5, -0.9, -0.5, -1.0]  # FR+RL full forward
+    #walk6: [-0.3, -0.8,  0.3, -1.1,  0.3, -1.1, -0.3, -0.8]  # mid-swing
+    #walk7: [ 0.0, -0.9,  0.0, -1.2,  0.0, -1.2,  0.0, -0.9]  # neutral stance
+    #walk8: [ 0.3, -1.1, -0.3, -0.8, -0.3, -0.8,  0.3, -1.1]  # FL+RR start forward again
+
+
+
+    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+    pos1: [1.57, -3.14, 1.57, -3.14, -1.57, 3.14, -1.57, 3.14]
+    pos2: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    pos3: [1.57, -3.14, 1.57, -3.14, -1.57, 3.14, -1.57, 3.14]
+    pos4: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+    joints:
+      - FL_HFE
+      - FL_KFE
+      - FR_HFE
+      - FR_KFE
+      - HL_HFE
+      - HL_KFE
+      - HR_HFE
+      - HR_KFE
+
+    check_starting_point: false
+    starting_point_limits:
+      FL_HFE: [-0.1,0.1]
+      FL_KFE: [-0.1,0.1]
+      FR_HFE: [-0.1,0.1]
+      FR_KFE: [-0.1,0.1]
+      HL_HFE: [-0.1,0.1]
+      HL_KFE: [-0.1,0.1]
+      HR_HFE: [-0.1,0.1]
+      HR_KFE: [-0.1,0.1]
