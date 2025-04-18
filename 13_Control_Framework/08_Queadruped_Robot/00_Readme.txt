@@ -1,0 +1,3 @@
+In this final unit, you will implement ROS2_Control for a quadruped robot and determine which controller is best suited for the task. This is your chance to apply everything you’ve learned throughout the course, but this time on a robot with 8 joints. You might be wondering: How does ROS2_Control work with quadruped robots? Is it much different from what we've covered so far? You'll find out by completing this project!
+Don’t worry—if you’ve been following along, this project should be straightforward to complete. You’ll also have the benefit of starter code, which includes the robot model, simulation files, and all the resources necessary to test your work.
+So, roll up your sleeves, dive in, and get started!
