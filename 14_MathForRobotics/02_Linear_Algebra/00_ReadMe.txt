@@ -1,0 +1,3 @@
+In this chapter, you are going to get a gentle introduction to the most basic field of mathematics: Linear Algebra. This discipline is a prerequisite to any career you want to follow in mathematics, physics, engineering, etc.
+As Linear Algebra is a very large field with many theorems and properties, we are going to present the basic units of it: vectors and matrices. In this tutorial, you will discover how to use them in Python, how to manipulate them, and how to apply them in interesting exercises, always from a robotics perspective.
+Linear algebra is the mathematics of data. Linear algebra has had a marked impact on the field of statistics. Linear algebra underlies many practical mathematical tools, such as Fourier series and computer graphics.
