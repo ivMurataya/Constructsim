@@ -1,0 +1,16 @@
+P_door1 = 0.5*0.33*0.5
+print("P(Door 1) = ",P_door1)
+P_door2 = 0.5*0.33*0.5
+print("P(Door 2) = ",P_door2)
+P_door3 = 0.5*0.33
+print("P(Door 3) = ",P_door3)
+P_door4 = 0.5*0.33
+print("P(Door 4) = ",P_door4)
+P_door5 = 0.5*0.5
+print("P(Door 5) = ",P_door5)
+P_door6 = 0.33*0.5*0.33
+print("P(Door 6) = ",P_door6)
+P_door7 = 0.33*0.5*0.33
+print("P(Door 7) = ",P_door7)
+P_door8 = 0.33*0.5*0.33
+print("P(Door 8) = ",P_door8)
