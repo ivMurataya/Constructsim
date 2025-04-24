@@ -6,3 +6,4 @@ how to calculate the derivative and the integral of a function, and also identif
 You'll also learn how to put meaning into the terms of an equation, the input variables and the 
 output variables, the slope, the tangent line, the limit in a point, the local minima, 
 the global minima, the area under a curve, etc.
+ 
