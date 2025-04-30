@@ -1,0 +1,7 @@
+<launch>
+    <!-- Launch first node -->
+    <node pkg="convert_velocities" type="publish_twist.py" name="first_node" output="screen" />
+
+    <!-- Launch second node -->
+    <node pkg="convert_velocities" type="convert_velocities.py" name="second_node" output="screen" />
+</launch>
