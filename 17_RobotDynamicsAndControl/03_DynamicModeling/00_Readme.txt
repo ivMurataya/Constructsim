@@ -8,3 +8,4 @@ Closed-form solutions to the equations are generally not available, and computer
       Lagrange Formulation
       Lagrange Equations
       Recursive Formulations
+
