@@ -19,3 +19,4 @@
   <node name="demo" pkg="simple_grasping" type="pick_and_place.py" output="screen" />
 
 </launch>
+ 
