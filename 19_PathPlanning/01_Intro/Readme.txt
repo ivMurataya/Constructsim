@@ -11,3 +11,4 @@ These algorithms are not just limited to GPS apps. They’re used in a wide rang
   🤖 And of course—robotics
 In robotics, path planning is a fundamental component in solving the larger challenge of autonomous robot navigation. 
 And that’s exactly what you’ll be learning how to do in this course!
+ 
