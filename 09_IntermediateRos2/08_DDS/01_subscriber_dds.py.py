@@ -38,7 +38,7 @@ class SubscriberDDS(Node):
         # self.get_logger().info('I receive: "%s"' % str(msg))
         # save the received data
         self.process_dds_test_data(msg.data)
-
+ 
     def process_dds_test_data(self,data):
         """
         The data has the format ID:Seconds,NanoSeconds
