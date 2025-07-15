@@ -10,5 +10,5 @@ Which is the best one?
   Who are you developing for?
   Which OS does it have to work on?
   Which resources do you have available to develop/maintain the app?
-So.. how do we deal with that?
+So.. how do we deal with that? 
 A generic, highly customizable, well-known and powerful solution!
