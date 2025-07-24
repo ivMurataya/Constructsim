@@ -11,4 +11,4 @@ Which is the best one?
   Which OS does it have to work on?
   Which resources do you have available to develop/maintain the app?
 So.. how do we deal with that? 
-A generic, highly customizable, well-known and powerful solution!
+A generic, highly customizable, well-known and powerful solution! 
