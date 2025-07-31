@@ -29,20 +29,20 @@ class TestRobotControl(unittest.TestCase):
     #     rospy.loginfo("SetUp Done")
     #     self.success = False
 
-    # def callback(self, msg):
-    #     print(rospy.get_caller_id(), "Angular Speed: %s" % msg.angular.z)
-    #     self.success = msg.angular.z and msg.angular.z == 1
+    def callback(self, msg):
+        print(rospy.get_caller_id(), "Angular Speed: %s" % msg.angular.z)
+        self.success = msg.angular.z and msg.angular.z == 1
 
-    # def test_publish_cmd_vel(self):
-    #     rospy.loginfo("\nRunning Test Publish cmd ")
+    def test_publish_cmd_vel(self):
+        rospy.loginfo("\nRunning Test Publish cmd ")
 
-    #     test_sub = rospy.Subscriber("/cmd_vel", Twist, self.callback)
-    #     self.rc.cmd.angular.z = 1
-    #     self.rc.publish_once_in_cmd_vel()
-    #     timeout_t = time.time() + 10.0 # 10 seconds
-    #     while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
-    #         time.sleep(0.1)
-    #     self.assert_(self.success)
+        test_sub = rospy.Subscriber("/cmd_vel", Twist, self.callback)
+        self.rc.cmd.angular.z = 1
+        self.rc.publish_once_in_cmd_vel()
+        timeout_t = time.time() + 10.0 # 10 seconds
+        while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+            time.sleep(0.1)
+        self.assert_(self.success)
 
     def test_rotate_robot_service(self):
         rospy.loginfo("\nRunning Test Rotate Service ")
@@ -65,18 +65,18 @@ class TestRobotControl(unittest.TestCase):
             # self.assertTrue(resp.rotation_successfull, "integration failure, service responce was not True")
             self.assertEqual(resp.rotation_successfull, expected_success, "Failed for input {}".format(z))
 
-    # def test_stop_robot(self):
-    #     # Set some dummy motion values before calling stop
-    #     rospy.loginfo("\nRunning Test STOP")
-    #     self.rc.cmd.linear.x = 1.5
-    #     self.rc.cmd.angular.z = 2.5
+    def test_stop_robot(self):
+        # Set some dummy motion values before calling stop
+        rospy.loginfo("\nRunning Test STOP")
+        self.rc.cmd.linear.x = 1.5
+        self.rc.cmd.angular.z = 2.5
 
 
-    #     self.rc.stop_robot()
-    #     rospy.loginfo("Robot Stopped, Vel angular.z = %f", self.rc.cmd.angular.z)
+        self.rc.stop_robot()
+        rospy.loginfo("Robot Stopped, Vel angular.z = %f", self.rc.cmd.angular.z)
 
-    #     self.assertEqual(self.rc.cmd.linear.x, 0.0, "Expected linear.x to be 0.0 after stop_robot")
-    #     self.assertEqual(self.rc.cmd.angular.z, 0.0, "Expected angular.z to be 0.0 after stop_robot")
+        self.assertEqual(self.rc.cmd.linear.x, 0.0, "Expected linear.x to be 0.0 after stop_robot")
+        self.assertEqual(self.rc.cmd.angular.z, 0.0, "Expected angular.z to be 0.0 after stop_robot")
 
 
 
