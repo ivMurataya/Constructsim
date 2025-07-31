@@ -1,0 +1,7 @@
+# request
+float64 speed_d
+float64 angle_d
+string clockwise_yn
+---
+#response
+bool rotation_successfull
