@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="robot_control" type="rotate_robot_srv.py" name='rotate_robot_srv_node'/>
+    <node pkg="robot_control" type="integration_reset_world_client.py" name='reset_world_srv_node'/>
+    <node pkg="robot_control" type="integration_rotate_robot_srv_client.py" name='rotate_srv_node'/>
+
+    <test test-name="rotate_robot_test_ros_srv" pkg="robot_control" type="comp_integration_robot_test.py"/>
+</launch>
