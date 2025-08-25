@@ -1,0 +1,8 @@
+<launch>
+        <arg name="path" default="/home/simulations/public_sim_ws/src/all/tum_ardrone_sim/tum-simulator-indigo/cvg_sim_gazebo/maps/small_octomap.bt"/>
+        <node pkg="octomap_server" type="octomap_server_node" name="octomap_talker" output="screen" args="$(arg path)">
+        </node>
+
+        <node pkg="load_octomap" type="octoload.py" name="moveit_octomap_handler" output="screen">
+        </node>
+</launch>
