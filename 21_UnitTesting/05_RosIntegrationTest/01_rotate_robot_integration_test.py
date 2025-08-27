@@ -12,7 +12,7 @@ import unittest
 import rostest
 import time
 PKG = 'robot_control'
-NAME = 'rotate_robot_integration_test'
+NAME = 'rotate_robot_integration_test' 
 
 class TestRobotControl(unittest.TestCase):
 
