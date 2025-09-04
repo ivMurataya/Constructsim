@@ -7,7 +7,7 @@
 07 Perception
 08 Manipulation 
 09 Robot Creation
-10 AI
+10 AI 
 11 ROS Debugging
 12 Course of product
 13 Web Dev
