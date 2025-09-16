@@ -45,6 +45,7 @@ roslaunch rtabmap_ros demo_turtlebot_rviz.launch
       <param name="Mem/RehearsalSimilarity"      type="string" value="0.30"/>
       <param name="Optimizer/Slam2D"             type="string" value="true"/>
       <param name="Reg/Force3DoF"                type="string" value="true"/>   
+      <param name="Mem/IncrementalMemory"        type="string" value="true"/>   
       
     </node>
    
